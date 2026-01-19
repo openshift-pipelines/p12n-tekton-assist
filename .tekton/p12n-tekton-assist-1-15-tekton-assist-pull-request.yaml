@@ -1,39 +1,43 @@
-# Generated for Konflux Application openshift-pipelines-core-next by openshift-pipelines/hack. DO NOT EDIT
+# Generated for Konflux Application openshift-pipelines-core by openshift-pipelines/hack. DO NOT EDIT
 apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
     pipelinesascode.tekton.dev/cancel-in-progress: "true" # Cancel in-progress pipelines
-    pipelinesascode.tekton.dev/pipeline: "https://raw.githubusercontent.com/openshift-pipelines/operator/refs/heads/main/.tekton/docker-build-ta.yaml"
-    build.appstudio.openshift.io/repo: https://github.com/openshift-pipelines/tekton-assist.git?rev={{revision}}
+    pipelinesascode.tekton.dev/pipeline: "https://raw.githubusercontent.com/openshift-pipelines/operator/refs/heads/next/.tekton/docker-build-ta.yaml"
+    build.appstudio.openshift.io/repo: https://github.com/openshift-pipelines/p12n-tekton-assist.git?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
-      == "next" &&
-      ("***".pathChanged() ||
+      == "release-v1.15.x" &&
+      ("upstream/***".pathChanged() || ".konflux/patches/***".pathChanged() || ".konflux/rpms/***".pathChanged() ||
       ".konflux/dockerfiles/tekton-assist.Dockerfile".pathChanged() ||
-      ".tekton/tekton-assist-next-tekton-assist-pull-request.yaml".pathChanged())
-  creationTimestamp: null
+      ".tekton/p12n-tekton-assist-1-15-tekton-assist-pull-request.yaml".pathChanged())
   labels:
-    appstudio.openshift.io/application: openshift-pipelines-core-next
-    appstudio.openshift.io/component: tekton-assist-next-tekton-assist
+    appstudio.openshift.io/application: openshift-pipelines-core-1-15
+    appstudio.openshift.io/component: p12n-tekton-assist-1-15-tekton-assist
     pipelines.appstudio.openshift.io/type: build
-  name: tekton-assist-next-tekton-assist-on-pull-request
+  name: p12n-tekton-assist-1-15-tekton-assist-on-pull-request
   namespace: tekton-ecosystem-tenant
 spec:
   params:
   - name: git-url
     value: '{{source_url}}'
+  - name: upstream-git-url
+    value: 'https://github.com/openshift-pipelines/tekton-assist'
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/tekton-ecosystem-tenant/next/tekton-assist-rhel9:on-pr-{{revision}}
+    value: quay.io/redhat-user-workloads/tekton-ecosystem-tenant/pipelines-tekton-assist-rhel8:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
   - name: dockerfile
     value: .konflux/dockerfiles/tekton-assist.Dockerfile
+  - name: additional-tags
+    value:
+      - "on-pr-1.15.4"
   - name: build-platforms
     value:
     - linux/x86_64
@@ -43,7 +47,7 @@ spec:
   pipelineRef:
     name: docker-build-ta
   taskRunTemplate:
-    serviceAccountName: build-pipeline-tekton-assist-next-tekton-assist
+    serviceAccountName: build-pipeline-p12n-tekton-assist-1-15-tekton-assist
   workspaces:
   - name: git-auth
     secret:
