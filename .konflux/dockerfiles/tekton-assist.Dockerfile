@@ -19,15 +19,16 @@ ARG VERSION=tekton-assist-main
 COPY --from=builder /tmp/tekton-assist /ko-app/tekton-assist
 
 LABEL \
-      com.redhat.component="openshift-pipelines-tekton-assist-rhel8-container" \
-      name="openshift-pipelines/tekton-assist-rhel8" \
-      version=$VERSION \
-      summary="Red Hat OpenShift Pipelines Tekton Assistant" \
+      com.redhat.component="openshift-pipelines-tekton-assist-rhel9-container" \
+      cpe="cpe:/a:redhat:openshift_pipelines:next::el9" \
+      description="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
+      io.k8s.description="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
+      io.k8s.display-name="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
+      io.openshift.tags="tekton,openshift,tekton-assist,tekton-assist" \
       maintainer="pipelines-extcomm@redhat.com" \
-      description="Red Hat OpenShift Pipelines Tekton Assistant" \
-      io.k8s.display-name="Red Hat OpenShift Pipelines Tekton Assistant" \
-      io.k8s.description="Red Hat OpenShift Pipelines Tekton Assistant" \
-      io.openshift.tags="pipelines,tekton,openshift"
+      name="openshift-pipelines/pipelines-tekton-assist-rhel9" \
+      summary="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
+      version="next"
 
 RUN microdnf install -y shadow-utils
 RUN groupadd -r -g 65532 nonroot && useradd --no-log-init -r -u 65532 -g nonroot nonroot
