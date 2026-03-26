@@ -4,7 +4,7 @@ ARG RUNTIME=registry.access.redhat.com/ubi9/ubi-minimal:latest@sha256:6fc28bcb67
 FROM $GO_BUILDER AS builder
 
 WORKDIR /go/src/github.com/openshift-pipelines/tekton-assist
-COPY . .
+COPY upstream .
 COPY .konflux/patches patches/
 RUN set -e; for f in patches/*.patch; do echo ${f}; [[ -f ${f} ]] || continue; git apply ${f}; done
 
