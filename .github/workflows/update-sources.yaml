@@ -24,7 +24,7 @@ jobs:
         rm -fR upstream
         git clone https://github.com/openshift-pipelines/tekton-assist upstream
         pushd upstream
-        git checkout -B release-v0.1.x origin/release-v0.1.x
+        git checkout -B main origin/main
         popd
     - name: Commit new changes
       run: |
