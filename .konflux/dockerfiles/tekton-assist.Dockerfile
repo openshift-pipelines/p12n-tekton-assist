@@ -1,4 +1,4 @@
-ARG GO_BUILDER=registry.access.redhat.com/ubi9/go-toolset:1.25
+ARG GO_BUILDER=registry.access.redhat.com/ubi9/go-toolset:latest
 ARG RUNTIME=registry.access.redhat.com/ubi9/ubi-minimal:latest
 
 FROM $GO_BUILDER AS builder
@@ -14,13 +14,13 @@ RUN go build -ldflags="-X 'knative.dev/pkg/changeset.rev=$(cat /tmp/HEAD)'" -mod
     ./cmd/tkn-assist
 
 FROM $RUNTIME
-ARG VERSION=next
+ARG VERSION=1.23
 
 COPY --from=builder /tmp/tekton-assist /ko-app/tekton-assist
 
 LABEL \
     com.redhat.component="openshift-pipelines-tekton-assist-rhel9-container" \
-    cpe="cpe:/a:redhat:openshift_pipelines:next::el9" \
+    cpe="cpe:/a:redhat:openshift_pipelines:1.23::el9" \
     description="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
     io.k8s.description="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
     io.k8s.display-name="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
@@ -28,7 +28,7 @@ LABEL \
     maintainer="pipelines-extcomm@redhat.com" \
     name="openshift-pipelines/pipelines-tekton-assist-rhel9" \
     summary="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
-    version="next"
+    version="v1.23.0"
 
 RUN microdnf install -y shadow-utils
 RUN groupadd -r -g 65532 nonroot && useradd --no-log-init -r -u 65532 -g nonroot nonroot
