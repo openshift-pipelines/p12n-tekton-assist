@@ -1,4 +1,4 @@
-ARG GO_BUILDER=registry.access.redhat.com/ubi9/go-toolset:1.25
+ARG GO_BUILDER=registry.access.redhat.com/ubi8/go-toolset:latest
 ARG RUNTIME=registry.access.redhat.com/ubi9/ubi-minimal:latest@sha256:6fc28bcb6776e387d7a35a2056d9d2b985dc4e26031e98a2bd35a7137cd6fd71
 
 FROM $GO_BUILDER AS builder
@@ -19,14 +19,14 @@ ARG VERSION=1.15
 COPY --from=builder /tmp/tekton-assist /ko-app/tekton-assist
 
 LABEL \
-    com.redhat.component="openshift-pipelines-tekton-assist-rhel9-container" \
+    com.redhat.component="openshift-pipelines-tekton-assist-rhel8-container" \
     cpe="cpe:/a:redhat:openshift_pipelines:1.15::el9" \
     description="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
     io.k8s.description="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
     io.k8s.display-name="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
     io.openshift.tags="tekton,openshift,tekton-assist,tekton-assist" \
     maintainer="pipelines-extcomm@redhat.com" \
-    name="openshift-pipelines/pipelines-tekton-assist-rhel9" \
+    name="openshift-pipelines/pipelines-tekton-assist-rhel8" \
     summary="Red Hat OpenShift Pipelines tekton-assist tekton-assist" \
     version="v1.15.5"
 
