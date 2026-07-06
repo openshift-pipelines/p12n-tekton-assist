@@ -1,0 +1,16 @@
+# IDE
+.vscode
+.idea
+.bin
+
+# Testing
+temp
+bin
+
+# secrets
+env
+config/env/
+
+# Binaries
+tkn-assist
+diagnose
